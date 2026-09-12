@@ -29,7 +29,7 @@ public class Menu {
                 case 1 -> registerView();
                 case 2 -> listReportView();
                 case 3 -> searchReportView();
-                case 4 -> changeSateView();
+                case 4 -> changeStateView();
                 case 5 -> System.out.println("Saliendo...");
                 default -> System.out.println("Opción inválida...");
             }
