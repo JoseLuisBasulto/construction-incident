@@ -56,7 +56,7 @@ public class Menu {
                     new Report(id,equipment,location,description,newPriority));
             id++;
         }else{
-            System.out.println("\nInformación en blanco o prioridad incorrecta...");
+            System.out.println("Información en blanco o prioridad incorrecta...");
         }
     }
 
