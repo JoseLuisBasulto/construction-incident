@@ -71,8 +71,10 @@ public class Menu {
 
             scanner.nextLine();
 
-            System.out.println("Estado actual: " + reportManager.searchReport(id).getState());
-            System.out.println("Ingrese el nuevo estado del reporte(PENDIENTE, PROCESANDO, RESUELTA):");
+            System.out.println("Estado actual: "
+                                + reportManager.searchReport(id).getState());
+            System.out.println("Ingrese el nuevo estado del " +
+                                "reporte(PENDIENTE, PROCESANDO, RESUELTA):");
             String state = scanner.nextLine();
 
             State newState = Validations.isValidState(state);
