@@ -28,7 +28,7 @@ public class Menu {
                 case 1 -> registerView();
                 case 2 -> reportManager.showReports();
                 case 3 -> searchReportView();
-                case 4 -> changeSateView();
+                case 4 -> changeStateView();
                 case 5 -> System.out.println("Saliendo...");
                 default -> System.out.println("Opción inválida...");
             }
@@ -56,11 +56,11 @@ public class Menu {
                     new Report(id,equipment,location,description,newPriority));
             id++;
         }else{
-            System.out.println("Información en blanco o prioridad incorrecta...");
+            System.out.println("\nInformación en blanco o prioridad incorrecta...");
         }
     }
 
-    private void changeSateView(){
+    private void changeStateView(){
         System.out.println("Ingrese el id del reporte:");
         int id = scanner.nextInt();
 
@@ -76,7 +76,6 @@ public class Menu {
         }else{
             System.out.println("Estado inválido...");
         }
-
     }
 
     private void searchReportView(){

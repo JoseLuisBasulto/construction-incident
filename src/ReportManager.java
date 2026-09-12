@@ -17,25 +17,35 @@ public class ReportManager {
     }
 
     public void changeReportSate(int idReport, State state){
-        Report newReport = searchReport(idReport);
+        Report report = searchReport(idReport);
 
-        if(newReport != null){
-            newReport.setState(state);
+        if (report == null){
+            return;
         }
+
+        Priority priority = report.getPriority();
+        if(priority == Priority.ALTA){
+            switch (report.getState()){
+                case PENDIENTE -> report.setState(State.PROCESANDO);
+                case PROCESANDO -> report.setState(State.RESUELTA);
+            }
+        }else{
+            report.setState(state);
+        }
+
     }
 
     public Report searchReport(int idReport){
-        Report report = null;
+        if (reportList.isEmpty()){
+            return null;
+        }
 
-        if(!reportList.isEmpty()){
-            for(Report currentReport : reportList){
-                if(currentReport.getIdReport() == idReport){
-                    report = currentReport;
-                    break;
-                }
+        for(Report currentReport : reportList){
+            if(currentReport.getIdReport() == idReport){
+                return currentReport;
             }
         }
 
-        return report;
+        return null;
     }
 }
