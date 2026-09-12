@@ -11,7 +11,7 @@ public class Menu {
     }
 
     public void start(){
-        int op;
+        int option;
 
         do {
             System.out.println("\n------------Menú principal------------");
@@ -20,19 +20,20 @@ public class Menu {
             System.out.println("3 Buscar reporte");
             System.out.println("4 Cambiar estado de reporte");
             System.out.println("5 Salir del programa");
+            System.out.printf("\nIngrese su elección:");
 
-            op = scanner.nextInt();
+            option = scanner.nextInt();
             scanner.nextLine();
 
-            switch (op){
+            switch (option){
                 case 1 -> registerView();
-                case 2 -> reportManager.showReports();
+                case 2 -> listReportView();
                 case 3 -> searchReportView();
                 case 4 -> changeStateView();
                 case 5 -> System.out.println("Saliendo...");
                 default -> System.out.println("Opción inválida...");
             }
-        }while (op != 5);
+        }while (option != 5);
     }
 
     private void registerView(){
@@ -44,7 +45,7 @@ public class Menu {
         String location = scanner.nextLine();
         System.out.print("Descripción: ");
         String description = scanner.nextLine();
-        System.out.print("Prioridad: ");
+        System.out.print("Prioridad (BAJA, MEDIA, ALTA): ");
         String priority = scanner.nextLine();
         System.out.print("Estado: Pendiente");
 
@@ -55,39 +56,75 @@ public class Menu {
             reportManager.registerReport(
                     new Report(id,equipment,location,description,newPriority));
             id++;
+            System.out.println("\nReporte registrado de manera correcta...");
+            waitForEnter();
         }else{
             System.out.println("Información en blanco o prioridad incorrecta...");
+            waitForEnter();
         }
     }
 
-    private void changeStateView(){
-        System.out.println("Ingrese el id del reporte:");
-        int id = scanner.nextInt();
+    private void changeSateView(){
+        if(!reportManager.getReportList().isEmpty()){
+            System.out.println("Ingrese el id del reporte:");
+            int id = scanner.nextInt();
 
-        scanner.nextLine();
+            scanner.nextLine();
 
-        System.out.println("Ingrese el nuevo estado del reporte:");
-        String state = scanner.nextLine();
+            System.out.println("Estado actual: "
+                                + reportManager.searchReport(id).getState());
+            System.out.println("Ingrese el nuevo estado del " +
+                                "reporte(PENDIENTE, PROCESANDO, RESUELTA):");
+            String state = scanner.nextLine();
 
-        State newState = Validations.isValidState(state);
+            State newState = Validations.isValidState(state);
 
-        if(newState != null){
-            reportManager.changeReportSate(id, newState);
-        }else{
-            System.out.println("Estado inválido...");
+            if(newState != null){
+                reportManager.changeReportSate(id, newState);
+                System.out.println("Estado cambiado de manera correcta...");
+                waitForEnter();
+            }else{
+                System.out.println("Estado inválido...");
+                waitForEnter();
+            }
+        } else {
+            System.out.println("No se han registrado reportes...");
+            waitForEnter();
         }
     }
 
     private void searchReportView(){
-        System.out.println("Ingrese el id del reporte:");
-        int id = scanner.nextInt();
+        if(!reportManager.getReportList().isEmpty()){
+            System.out.println("Ingrese el id del reporte:");
+            int id = scanner.nextInt();
 
-        Report report = reportManager.searchReport(id);
+            Report report = reportManager.searchReport(id);
 
-        if(report != null){
-            System.out.println(report);
-        }else{
-            System.out.println("No se encontró el reporte...");
+            if(report != null){
+                System.out.println(report);
+                waitForEnter();
+            }else{
+                System.out.println("No se encontró el reporte...");
+                waitForEnter();
+            }
+        } else {
+            System.out.println("No se han registrado reportes...");
+            waitForEnter();
         }
+    }
+
+    private void listReportView(){
+        if(!reportManager.getReportList().isEmpty()){
+            reportManager.showReports();
+            waitForEnter();
+        } else {
+            System.out.println("No se han registrado reportes...");
+            waitForEnter();
+        }
+    }
+
+    private void waitForEnter(){
+        System.out.printf("\nPresiona enter para continuar...");
+        scanner.nextLine();
     }
 }

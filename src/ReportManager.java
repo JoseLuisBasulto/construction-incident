@@ -48,4 +48,8 @@ public class ReportManager {
 
         return null;
     }
+
+    public List<Report> getReportList() {
+        return reportList;
+    }
 }
