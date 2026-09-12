@@ -64,7 +64,7 @@ public class Menu {
         }
     }
 
-    private void changeSateView(){
+    private void changeStateView(){
         if(!reportManager.getReportList().isEmpty()){
             System.out.println("Ingrese el id del reporte:");
             int id = scanner.nextInt();
